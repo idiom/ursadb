@@ -9,7 +9,6 @@
 #include "Json.h"
 #include "Query.h"
 #include "QueryOptimizer.h"
-#include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
 void OnDiskDataset::save() {
@@ -101,7 +100,6 @@ void OnDiskDataset::execute(const Query &query, ResultWriter *out,
     }
     Query plan = query.plan(types_to_query);
     plan = q_optimize(std::move(plan));
-    spdlog::debug("PLAN: {}", plan);
 
     QueryResult result = this->query(plan, counters);
     if (result.is_everything()) {
